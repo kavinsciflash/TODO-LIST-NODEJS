@@ -62,11 +62,11 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Login to docker hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin ${{ secrets.DOCKER_PASSWORD }}
+        run: sudo docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker Image
-        run: docker build -t kavinprasanth/nodejs .
+        run: sudo docker build -t kavinprasanth/nodejs .
       - name: Publish Image to docker hub
-        run: docker push kavinprasanth/nodejs:latest
+        run: sudo docker push kavinprasanth/nodejs:latest
         
   deploy:
     needs: build
@@ -74,6 +74,6 @@ jobs:
     
     steps:
       - name: Pull Image From the docker hub
-        run: docker pull kavinprasanth/nodejs:latest
+        run: sudo docker pull kavinprasanth/nodejs:latest
       - name: Run Docker Container
-        run: run docker -d  -p 5000:5000 --name nodejs-app-container -e  MONGO_PASSWORD='{{ secrets.MONGO_PASSWORD }}' kavinprasanth/nodejs
+        run: sudo run docker -d  -p 5000:5000 --name nodejs-app-container -e  MONGO_PASSWORD='{{ secrets.MONGO_PASSWORD }}' kavinprasanth/nodejs
