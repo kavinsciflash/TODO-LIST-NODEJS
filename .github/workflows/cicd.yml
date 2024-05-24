@@ -36,7 +36,7 @@
 
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Deploy node application
 
 # Controls when the workflow will run
 on:
@@ -61,12 +61,19 @@ jobs:
       # Checks out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build Docker Image
+        run: docker build -t kavinprasanth/nodejs .
+      - name: Publish Image to docker hub
+        run: docker push kavinprasanth/nodejs:latest
+        
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    
+    steps:
+      - name: Pull Image From the docker hub
+        run: docker pull kavinprasanth/nodejs:latest
+      - name: Run Docker Container
+        run: run docker -d  -p 5000:5000 --name nodejs-app-container -e  MONGO_PASSWORD='{{ secrets.MONGO_PASSWORD }}' kavinprasanth/nodejs
