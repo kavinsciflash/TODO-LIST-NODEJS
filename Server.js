@@ -21,6 +21,9 @@ mongoose.connect(MONGO_URI)
     .then(() => console.log("mongodb connected..."))
     .catch((err) => console.log(err))
 
+app.get('/', (req, res) => {
+    res.send('Welcome to my Node.js app!');
+});
 
 app.use("/api", routes)
 
