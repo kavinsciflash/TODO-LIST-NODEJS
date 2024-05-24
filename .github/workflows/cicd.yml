@@ -1,10 +1,4 @@
 name: Deploy node application
-permissions:
-  actions: write       # Necessary to cancel workflow executions
-  checks: write        # Necessary to write reports
-  pull-requests: write # Necessary to comment on PRs
-  contents: read
-  packages: write
 on:
   push:
     branches:
@@ -18,7 +12,7 @@ jobs:
         with:
           repository: kavinprasanth/TODO-LIST-NODEJS
           token: ${{ secrets.PAT }}
-          ref: master
+          ref: main
       - name: Login to docker hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker Image
