@@ -64,4 +64,4 @@ jobs:
       - name: Pull Image From the docker hub
         run: sudo docker pull kavinprasanth/nodejs:latest
       - name: Run Docker Container
-        run: sudo run docker -d  -p 5000:5000 --name nodejs-app-container -e  MONGO_PASSWORD='{{ secrets.MONGO_PASSWORD }}' kavinprasanth/nodejs
+        run: run docker -d  -p 5000:5000 --name nodejs-app-container -e  MONGO_PASSWORD='{{ secrets.MONGO_PASSWORD }}' kavinprasanth/nodejs
