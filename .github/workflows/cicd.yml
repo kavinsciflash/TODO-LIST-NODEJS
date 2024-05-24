@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source
-        uses: action/checkout@v2
+        uses: action/checkout@v3
         with:
-          repository: Madurad/jenkinsfiles
+          repository: kavinprasanth/TODO-LIST-NODEJS
           token: ${{ secrets.PAT }}
           ref: master
       - name: Login to docker hub
