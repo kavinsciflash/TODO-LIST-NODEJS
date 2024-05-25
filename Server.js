@@ -25,6 +25,10 @@ app.get('/', (req, res) => {
     res.send('Welcome to my Node.js app!');
 });
 
+app.use(cors({
+    origin: 'http://54.158.81.83:3000',
+  }));
+
 app.use("/api", routes)
 
 app.listen(PORT, () => console.log(`listening at ${PORT}`))
