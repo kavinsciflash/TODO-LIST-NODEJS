@@ -1,13 +1,8 @@
-FROM node:alpine3.18
-
-WORKDIR /app
-
-COPY package.json ./
-
+FROM node:latest
+WORKDIR /src
+COPY package.json package-lock.json ./
 RUN npm install
-
 COPY . .
+EXPOSE 8080
+CMD [ "npm", "start"]
 
-EXPOSE 5000
-
-CMD [ "npm", 'run', 'start' ]
