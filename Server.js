@@ -16,14 +16,6 @@ const PORT = process.env.PORT | 5000
 
 app.use(express.json())
 
-const corsOptions = {
-    origin: 'http://34.229.14.151', // Allow requests from this origin
-    optionsSuccessStatus: 200 // Some legacy browsers choke on 204
-  };
-  
-  // Use CORS middleware with the specified options
-  app.use(cors(corsOptions));
-  
 
 mongoose.connect(MONGO_URI)
     .then(() => console.log("mongodb connected..."))
@@ -34,8 +26,19 @@ app.get('/', (req, res) => {
 });
 
 app.use(cors({
-    origin: 'http://34.229.14.151:3000',
-}));
+    origin: 'http://34.229.14.151:3000', // Allow all origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+    optionsSuccessStatus: 200 // For legacy browser support
+  }));
+  
+  // Manually setting CORS headers (optional, for additional control)
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    next();
+  });
 
 app.use("/api", routes)
 
