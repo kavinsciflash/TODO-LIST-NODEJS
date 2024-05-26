@@ -26,8 +26,8 @@ app.get('/', (req, res) => {
 });
 
 app.use(cors({
-    origin: 'http://54.158.81.83:3000',
-  }));
+    origin: 'http://34.229.14.151:3000',
+}));
 
 app.use("/api", routes)
 
