@@ -22,7 +22,7 @@ mongoose.connect(MONGO_URI)
     .catch((err) => console.log(err))
 
 app.get('/', (req, res) => {
-    res.send('Welcome to my Node.js app!');
+    res.send('kudos Node App Running!...');
 });
 
 app.use(cors({
