@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(cors({
-    origin: 'http://34.229.14.151:3000', // Allow all origins
+    origin: '*', // Allow all origins
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
     optionsSuccessStatus: 200 // For legacy browser support
